@@ -1,0 +1,95 @@
+###########################
+#     ECLIPSE SETTINGS    #
+###########################
+
+.metadata/
+*.tmp
+*.bak
+*.swp
+
+# Specific Eclipse project files
+.settings/
+.classpath
+.project
+
+# Eclipse Build folders
+bin/
+tmp/
+
+###########################
+#        JAVA BUILD       #
+###########################
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+###########################
+#          MAVEN          #
+###########################
+
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+###########################
+#         GRADLE          #
+###########################
+
+.gradle/
+build/
+
+###########################
+#        PACKAGES         #
+###########################
+
+# Package files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+###########################
+#        OS FILES         #
+###########################
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+
+###########################
+#         IDE FILES       #
+###########################
+
+# JetBrains / IntelliJ
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+###########################
+#     JAVA TOOLING        #
+###########################
+
+# Coverage tools
+*.exec
+*.ec
+*.coverage
+
+# Others
+*.orig
