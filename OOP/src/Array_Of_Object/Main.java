@@ -11,10 +11,10 @@ public class Main {
 		refrigerator[0] = food1;
 		refrigerator[1] = food2;
 		refrigerator[2] = food3;
-		
-		for(int i = 0; i < refrigerator.length; i++)
+				
+		for(Food freezer : refrigerator) 
 		{
-			System.out.println(refrigerator[i].name);
+			System.out.println(freezer.name);
 		}
 	}
 }
