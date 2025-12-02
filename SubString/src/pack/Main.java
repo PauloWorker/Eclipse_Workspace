@@ -15,6 +15,10 @@ public class Main {
 		{
 			JOptionPane.showMessageDialog(null, "You need to type the '@' in the email box");
 		}
+		else if(email.lastIndexOf('@') > email.indexOf('@'))
+		{
+			JOptionPane.showMessageDialog(null, "You need to type just once '@' in the email box");
+		}
 		else
 		{
 			name = email.substring(0, email.indexOf('@'));
