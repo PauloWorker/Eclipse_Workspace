@@ -1,4 +1,4 @@
-package TextField;
+package CheckBox;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,7 +7,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -15,6 +17,9 @@ public class MyFrame extends JFrame implements ActionListener{
 	
 	JButton button;
 	JTextField textField;
+	JCheckBox checkBox;
+	ImageIcon icon_correct = new ImageIcon("src/correct_icon.png");
+	ImageIcon icon_incorrect = new ImageIcon("src/incorrect_icon.png");
 	
 	MyFrame()
 	{
@@ -22,15 +27,13 @@ public class MyFrame extends JFrame implements ActionListener{
 		button = new JButton("Submit");
 		button.addActionListener(this);
 		
-		textField = new JTextField();
-		textField.setPreferredSize(new Dimension(250, 40));
-		textField.setFont(new Font("Calibri", Font.PLAIN, 25));
-		textField.setForeground(new Color(0x00FF00));
-		textField.setBackground(Color.black);
-		textField.setCaretColor(Color.white);
-		textField.setText("Username");
+		checkBox = new JCheckBox();
+		checkBox.setText("I'm not a robot");
+		checkBox.setFocusable(false);
+		checkBox.setFont(new Font("Arial", Font.PLAIN, 21));
+		checkBox.setIcon(icon_incorrect);
+		checkBox.setSelectedIcon(icon_correct);
 		
-
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new FlowLayout());
 		this.setResizable(false);
@@ -38,8 +41,8 @@ public class MyFrame extends JFrame implements ActionListener{
 		this.setVisible(true);
 		this.setSize(800, 640);
 		
+		this.add(checkBox);
 		this.add(button);
-		this.add(textField);
 		
 	}
 
@@ -47,9 +50,7 @@ public class MyFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button)
 		{
-			System.out.println(textField.getText());
-			button.setEnabled(false);
-			textField.setEditable(false);
+			System.out.println(checkBox.isSelected());
 		}
 		
 	}
