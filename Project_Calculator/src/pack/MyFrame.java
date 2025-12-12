@@ -73,11 +73,11 @@ public class MyFrame extends JFrame implements ActionListener {
 		this.setSize(800, 640);
 		
 		this.add(text);
-		this.add(button);
 		this.add(signsButton[0]);
 		this.add(signsButton[1]);
 		this.add(signsButton[2]);
 		this.add(signsButton[3]);
+		this.add(button);
 		this.add(l_result);
 		
 	}
@@ -86,20 +86,14 @@ public class MyFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button)
 		{
-			//l_result.setText(text.getText());
 			Calculate();
 		}
-		
-		//if(e.getSource() == signsButton[0])
-		//{
-			//text.setText(text.getText() + "+");
-		//}
 		
 		for(int i = 0; i < signsButton.length; i++)
 		{
 			if(e.getSource() == signsButton[i])
 			{
-				text.setText(text.getText() + i);
+				text.setText(text.getText() + signsButton[i].getText());
 			}
 		}
 	}

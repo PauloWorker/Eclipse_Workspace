@@ -32,7 +32,7 @@ public class MyFrame extends JFrame implements ActionListener{
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(640, 320);
-		this.setLayout(new FlowLayout());
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.setVisible(true);
 	
 		fileMenu.add(loadItem);
