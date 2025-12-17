@@ -27,6 +27,8 @@ public class UserInterface extends JFrame implements ActionListener{
 			new JButton("/")
 			};
 	
+	String n = "0"; //value to the display
+	
 	UserInterface()
 	{
 		// --- JFrame --- //
@@ -36,6 +38,7 @@ public class UserInterface extends JFrame implements ActionListener{
 		this.setLayout(null);
 		this.setSize(320, 480);
 
+		//numpad
 		for(JButton num_button : num_buttons)
 		{
 			num_button.setFocusable(false);
@@ -45,6 +48,16 @@ public class UserInterface extends JFrame implements ActionListener{
 			panel.add(num_button);
 		}
 		
+		//signals
+		for(JButton sign_button : sign_buttons)
+		{
+			sign_button.setFocusable(false);
+			sign_button.setFont(new Font("Geom", Font.BOLD, 15));
+			sign_button.addActionListener(this);
+			
+			panel.add(sign_button);
+		}
+		
 		this.add(display);
 		this.add(panel);
 		
@@ -52,22 +65,64 @@ public class UserInterface extends JFrame implements ActionListener{
 		display.setBounds(80, 5, 160, 36);
 		display.setFont(new Font("Geom", Font.BOLD, 25));
 
-		panel.setBounds(80, 40, 160, 160);
+		panel.setBounds(80, 40, 160, 175);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int n = 0;
 		
+		//Function to the numpad
 		for(JButton num_button : num_buttons)
 		{
 			if(e.getSource() == num_button)
 			{
+				//If else to not add the number 0 on front the another
+				if(num_button.getText() != "0") 
+				{
+					if(n != "0")
+					{
+						n += Integer.parseInt(num_button.getText()); //Add a number, case if isn't 0 
+					}
+					else
+					{
+						n = (num_button.getText());
+					}
+				}
+				else
+				{
+					if(n != "0")
+					{
+						n += Integer.parseInt(num_button.getText());
+					}
+					else
+					{
+						n = "0";
+					}
+				}
+			
 				
-				n += Integer.parseInt(num_button.getText());
-				display.setText("" + n);
+				System.out.println(n);
 			}
 		}
+		
+		for(JButton sign_button : sign_buttons)
+		{
+			
+			if(e.getSource() == sign_button)
+			{				
+				if(lastCharAt(n) != '+' && lastCharAt(n) != '-' && lastCharAt(n) != '*' && lastCharAt(n) != '/') //Prevent to add a new sign after another
+				{
+					n += sign_button.getText();
+				}
+			}
+		}
+		
+		display.setText("" + n);
 	}
-
+	
+	char lastCharAt(String s)
+	{
+		int lastIndex = s.length() - 1;
+		return s.charAt(lastIndex);
+	}
 }
