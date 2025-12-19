@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class MyFrame extends JFrame implements ActionListener {
+public class Login extends JFrame implements ActionListener {
 	
 	JLabel login_label = new JLabel("Login");
 	JLabel password_label = new JLabel("Password");
@@ -19,9 +19,9 @@ public class MyFrame extends JFrame implements ActionListener {
 	JTextField password_field = new JTextField();
 	
 	private String username = "TechWorld123";
-	private String password = "123456";
+	private String password = "abcdef";
 	
-	MyFrame()
+	Login()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
@@ -54,22 +54,26 @@ public class MyFrame extends JFrame implements ActionListener {
 		message_label.setBounds(170, 160, 450, 30);
 		message_label.setHorizontalTextPosition(JLabel.CENTER);
 		message_label.setFont(new Font("MV Boli", Font.BOLD, 25));
+		
+		System.out.println(password_field.getText().equals(password));
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == login_field || e.getSource() == password_field)
 		{
-			if(login_field.getText() != username && password_field.getText() != password)
+			if(!password_field.getText().equals(password) || !login_field.getText().equals(username))
 			{
 				message_label.setText("Username and Password incorrect");
-				message_label.setForeground(Color.red);
+				message_label.setForeground(Color.red);				
 			}
 			else
 			{
 				message_label.setText("Username and Password correct");
 				message_label.setForeground(Color.green);
 			}
+			
+			
 		}
 		
 	}
