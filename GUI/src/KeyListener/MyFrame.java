@@ -64,11 +64,11 @@ public class MyFrame extends JFrame implements KeyListener {
 				break;
 		}
 		
-		x = Math.min(Math.max(0, x), limitX - 116);
-		y = Math.min(Math.max(0, y), limitY - 139);
+		x = Math.min(Math.max(0, x), limitX - 116); //x position limits
+		y = Math.min(Math.max(0, y), limitY - 139); //y position limits
 
 		
-		label.setLocation(x, y);
+		label.setLocation(x, y); // Change the location
 	}
 
 	@Override

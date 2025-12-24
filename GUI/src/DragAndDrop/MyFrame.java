@@ -1,4 +1,4 @@
-package ReferencePack;
+package DragAndDrop;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,15 +10,19 @@ import javax.swing.JLabel;
 
 public class MyFrame extends JFrame {
 	
+	DragPanel dragPanel = new DragPanel();
+	
 	
 	MyFrame()
 	{
+		this.setTitle("Drag & Drop");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
-		this.setSize(380, 320);
-		this.setLayout(null);
+		this.setSize(640, 480);
 		this.setVisible(true);
-	
+		this.add(dragPanel);
+		
 	}
+	
 	
 }
