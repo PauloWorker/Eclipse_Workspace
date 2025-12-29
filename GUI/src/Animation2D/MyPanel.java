@@ -1,4 +1,4 @@
-package Graphics2D;
+package Animation2D;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -14,7 +14,11 @@ import javax.swing.JPanel;
 
 public class MyPanel extends JPanel implements KeyListener{
 
+	int maxHealth = 270;
+	int currentMaxHealth = 90;
 	int health = 200;
+	int add = 15;
+	boolean active = false;
 	Graphics2D g2D;
 	JButton plus = new JButton("+");
 	JButton minus = new JButton("-");
@@ -30,8 +34,24 @@ public class MyPanel extends JPanel implements KeyListener{
 		
 		plus.setVisible(true);
 		minus.setVisible(true);
+	
+		health = Math.min(Math.max(0, health), currentMaxHealth);
 		
-		
+		while(active)
+		{
+			if(health <= 0)
+			{
+				repaint();
+				upHealth();
+			}
+			else if(health >= 270)
+			{
+				repaint();
+				downHealth();
+				
+			}
+			System.out.println("Health: " + health);
+		}
 	}
 	
 	public void paint(Graphics g)
@@ -53,25 +73,46 @@ public class MyPanel extends JPanel implements KeyListener{
 		
 		g2D.setPaint(Color.DARK_GRAY);
 		g2D.setStroke(new BasicStroke(20));
-		g2D.drawArc(25, 25, 200, 200, 360, 90); //Draw a Arc
+		g2D.drawArc(25, 25, 250, 250, 360, 90); //Draw a Arc
 		
 		g2D.setPaint(Color.gray);
 		g2D.setStroke(new BasicStroke(20));
-		g2D.drawArc(25, 25, 200, 200, 360, -270); //Draw a Arc
+		g2D.drawArc(25, 25, 250, 250, 360, -270); //Draw a Arc
+		
+		g2D.setPaint(new Color(0x555555));
+		g2D.setStroke(new BasicStroke(7));
+		g2D.drawArc(25, 25, 250, 250, 360, -270); //Draw a Arc
 		
 		g2D.setPaint(new Color(0x222222));
-		g2D.setStroke(new BasicStroke(8));
-		g2D.drawArc(25, 25, 200, 200, 360, -270); //Draw a Arc
-		
-		
-		g2D.setPaint(Color.blue);
 		g2D.setStroke(new BasicStroke(7));
-		g2D.drawArc(25, 25, 200, 200, 360, -health); //Draw a Arc
+		g2D.drawArc(25, 25, 250, 250, 360, -currentMaxHealth); //Draw a Arc
+		
+		if(health >= maxHealth)
+		{
+			g2D.setPaint(Color.blue);
+		}
+		else if(health >= 90 && health < maxHealth)
+		{
+			g2D.setPaint(Color.green);
+		}
+		else if(health >= 45 && health < 90)
+		{
+			g2D.setPaint(Color.yellow);
+		}
+		else if(health >= 0 && health < 45)
+		{
+			g2D.setPaint(Color.red);
+		}
+		
+		g2D.setStroke(new BasicStroke(7));
+		g2D.drawArc(25, 25, 250, 250, 360, -health); //Draw a Arc
 		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		repaint();
+		
 		switch(e.getKeyChar())
 		{
 			case 'w':
@@ -82,6 +123,22 @@ public class MyPanel extends JPanel implements KeyListener{
 			case 's':
 				downHealth();
 				System.out.println("Down");
+				break;
+				
+			case 'q':
+				downMaxHealth();
+				System.out.println("downgrade");
+				break;
+				
+			case 'e':
+				upMaxHealth();
+				System.out.println("upgrade");
+				break;
+				
+			case 'a':
+				health = 0;
+				active = !active;
+				System.out.println("Auto: " + active);
 				break;
 				
 			default:
@@ -105,13 +162,29 @@ public class MyPanel extends JPanel implements KeyListener{
 	
 	public void upHealth()
 	{
-		health++;
-		health = Math.min(Math.max(0, health), 270);
+		health += add;
+		health = Math.min(Math.max(0, health), currentMaxHealth);
 	}
 	
 	public void downHealth()
 	{
-		health--;
-		health = Math.min(Math.max(0, health), 270);
+		health -= add;
+		health = Math.min(Math.max(0, health), currentMaxHealth);
+	}
+	
+	public void upMaxHealth()
+	{
+		currentMaxHealth += add;
+		currentMaxHealth = Math.min(Math.max(0, currentMaxHealth), maxHealth);
+		
+		health = Math.min(Math.max(0, health), currentMaxHealth);
+	}
+	
+	public void downMaxHealth()
+	{
+		currentMaxHealth -= add;		
+		currentMaxHealth = Math.min(Math.max(0, currentMaxHealth), maxHealth);
+		
+		health = Math.min(Math.max(0, health), currentMaxHealth);
 	}
 }
