@@ -17,7 +17,7 @@ public class MyPanel extends JPanel implements KeyListener{
 	int maxHealth = 270;
 	int currentMaxHealth = 90;
 	int health = 200;
-	int add = 15;
+	int add = 25;
 	boolean active = false;
 	Graphics2D g2D;
 	JButton plus = new JButton("+");
@@ -89,7 +89,7 @@ public class MyPanel extends JPanel implements KeyListener{
 		
 		if(health >= maxHealth)
 		{
-			g2D.setPaint(Color.blue);
+			g2D.setPaint(new Color(0x0000ff));
 		}
 		else if(health >= 90 && health < maxHealth)
 		{
