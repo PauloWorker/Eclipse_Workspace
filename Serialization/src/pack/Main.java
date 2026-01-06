@@ -3,6 +3,7 @@ package pack;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.ObjectStreamClass;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
@@ -30,5 +31,8 @@ public class Main {
 		fileOut.close();
 		
 		System.out.println("Object saved!");
+		
+		long serialVersionUID = ObjectStreamClass.lookup(user.getClass()).getSerialVersionUID();
+		System.out.println(serialVersionUID);
 	}
 }

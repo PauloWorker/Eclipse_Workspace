@@ -1,8 +1,6 @@
 package pack;
 
 import java.io.*;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 public class Main {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -38,6 +36,9 @@ public class Main {
 		
 		System.out.println(user.name);
 		System.out.println(user.password);
+		
+		long serialVersionUID = ObjectStreamClass.lookup(user.getClass()).getSerialVersionUID();
+		System.out.println(serialVersionUID);
 		
 	}
 }
