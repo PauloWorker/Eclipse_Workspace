@@ -23,6 +23,9 @@ import javax.swing.border.Border;
 
 public class MyFrame extends JFrame implements ActionListener{
 	
+	int width = 640; //Width of the window
+	int height = 320; //Height of the window
+	
 	User user = new User();
 	SaveFile saveFile;
 	LoadFile loadFile;
@@ -32,15 +35,22 @@ public class MyFrame extends JFrame implements ActionListener{
 	
 	JPanel menu_panel = new JPanel();
 	JPanel panel = new JPanel();
+
 	
+	// ------------------ Menu Bar -----------------------//
 	JMenuBar menuBar = new JMenuBar();
 	JMenu fileMenu = new JMenu("File");
 	JMenu editMenu = new JMenu("Edit");
 	JMenu helpMenu = new JMenu("Help");
 	
+	// ------------------ File Menu ----------------------//
 	JMenuItem loadItem = new JMenuItem("Load");
 	JMenuItem saveItem = new JMenuItem("Save");
 	JMenuItem exitItem = new JMenuItem("Exit");
+	
+	// ------------------ Help Menu ----------------------//
+	JMenuItem infoItem = new JMenuItem("Info");
+	JMenuItem aboutItem = new JMenuItem("About Us");
 	
 	JTextField user_text = new JTextField();
 	JTextField password_text = new JTextField();
@@ -51,15 +61,20 @@ public class MyFrame extends JFrame implements ActionListener{
 	
 	public MyFrame()
 	{
+		this.setTitle("Project Save & Load File");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(640, 320);
+		this.setSize(width, height);
 		this.setLayout(new BorderLayout(0, 0));
 		this.setVisible(true);
-		//this.setResizable(false);
+		this.setResizable(false);
+		this.setLocationRelativeTo(null); //Open the window in the center of the screen
 	
 		fileMenu.add(loadItem);
 		fileMenu.add(saveItem);
 		fileMenu.add(exitItem);
+		
+		helpMenu.add(infoItem);
+		helpMenu.add(aboutItem);
 		
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
@@ -76,14 +91,14 @@ public class MyFrame extends JFrame implements ActionListener{
 		panel.add(password_text);
 		
 		
-		menuBar.setPreferredSize(new Dimension(640, 25));
+		menuBar.setPreferredSize(new Dimension(width, 25));
 		
 		menu_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		menu_panel.setPreferredSize(new Dimension(300, 25));
+		menu_panel.setPreferredSize(new Dimension(height - 20, 25));
 		//menu_panel.setBorder(BorderFactory.createLineBorder(Color.green, 3));
 		
 		//panel.setBorder(BorderFactory.createLineBorder(Color.blue, 1));
-		panel.setPreferredSize(new Dimension(640, 290));
+		panel.setPreferredSize(new Dimension(width, height - 30));
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
 		
 		
@@ -106,13 +121,17 @@ public class MyFrame extends JFrame implements ActionListener{
 		loadItem.addActionListener(this);
 		saveItem.addActionListener(this);
 		exitItem.addActionListener(this);
+		infoItem.addActionListener(this);
+		aboutItem.addActionListener(this);
 		user_text.addActionListener(this);
+		
 	}
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		// -------------------------- File Menu -----------------------------//
 		if(e.getSource() == user_text || e.getSource() == password_text)
 		{
 			
@@ -123,6 +142,8 @@ public class MyFrame extends JFrame implements ActionListener{
 			try {
 				loadFile = new LoadFile();
 				
+				user_text.setText(loadFile.user.getName());
+				password_text.setText(loadFile.user.getPassword());
 				
 			} catch (ClassNotFoundException | IOException e1) {
 				// TODO Auto-generated catch block
@@ -151,8 +172,27 @@ public class MyFrame extends JFrame implements ActionListener{
 		{
 			System.exit(0);
 		}
+	
 		
+		// -------------------------- Help Menu -----------------------------//
+		if(e.getSource() == infoItem)
+		{
+			OpenInfoItem();
+		}
+		
+		if(e.getSource() == aboutItem)
+		{
+			OpenAboutItem();
+		}
 	}
 	
+	void OpenAboutItem()
+	{
+		About_window about_win = new About_window();
+	}
 	
+	void OpenInfoItem()
+	{
+		Info_window info_win = new Info_window();
+	}
 }

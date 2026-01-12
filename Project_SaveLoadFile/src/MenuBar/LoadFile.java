@@ -9,9 +9,11 @@ import java.io.ObjectStreamClass;
 
 public class LoadFile {
 	
+	protected User user;
+	
 	public LoadFile() throws IOException, ClassNotFoundException
 	{
-		User user = null;
+		user = null;
 				
 		final FileInputStream fileIn = new FileInputStream("src/FileData.ser");
 		final ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -23,7 +25,7 @@ public class LoadFile {
 		
 		System.out.println("File Loaded");
 		System.out.println("Serial Version UID: " + serialVersionUID);
-		System.out.println("Name: " + user.name);
-		System.out.println("Password: " + user.password);
+		System.out.println("Name: " + user.getName());
+		System.out.println("Password: " + user.getPassword());
 	}
 }
