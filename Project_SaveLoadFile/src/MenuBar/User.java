@@ -2,6 +2,8 @@ package MenuBar;
 
 import java.io.Serializable;
 
+import javax.swing.JPasswordField;
+
 public class User implements Serializable {
 	/**
 	 * 
@@ -9,14 +11,14 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 213L;
 	
 	private String name;
-	private String password;
+	private char[] password;
 	
 	User()
 	{
 		
 	}
 	
-	User(String name, String password)
+	User(String name, JPasswordField password)
 	{
 		this.setName(name);
 		this.setPassword(password);
@@ -31,10 +33,17 @@ public class User implements Serializable {
 	}
 
 	public String getPassword() {
-		return password;
+		String s = "";
+		
+		for(char c : password)
+		{
+			s += c;
+		}
+		
+		return s;
 	}
 
-	private void setPassword(String password) {
-		this.password = password;
+	private void setPassword(JPasswordField password) {
+		this.password = password.getPassword();
 	}
 }

@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import javax.swing.JPasswordField;
+
 public class SaveFile implements Serializable {
 	
-	public SaveFile(String name, String password) throws IOException
+	public SaveFile(String name, JPasswordField password) throws IOException
 	{
 		User user = new User(name, password);
 		

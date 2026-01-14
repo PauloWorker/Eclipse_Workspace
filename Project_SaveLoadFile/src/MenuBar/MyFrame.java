@@ -4,10 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,7 +22,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 
 
@@ -32,6 +39,8 @@ public class MyFrame extends JFrame implements ActionListener{
 	
 	JLabel l_user = new JLabel("User");
 	JLabel l_password = new JLabel("Password");
+	
+	JLabel message = new JLabel();
 	
 	JPanel menu_panel = new JPanel();
 	JPanel panel = new JPanel();
@@ -53,7 +62,7 @@ public class MyFrame extends JFrame implements ActionListener{
 	JMenuItem aboutItem = new JMenuItem("About Us");
 	
 	JTextField user_text = new JTextField();
-	JTextField password_text = new JTextField();
+	JPasswordField password_text = new JPasswordField();
 	
 	ImageIcon loadIcon = new ImageIcon("src/folder.png");
 	ImageIcon saveIcon = new ImageIcon("src/save.png");
@@ -63,10 +72,11 @@ public class MyFrame extends JFrame implements ActionListener{
 	{
 		this.setTitle("Project Save & Load File");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.pack();
 		this.setSize(width, height);
 		this.setLayout(new BorderLayout(0, 0));
 		this.setVisible(true);
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.setLocationRelativeTo(null); //Open the window in the center of the screen
 	
 		fileMenu.add(loadItem);
@@ -89,21 +99,34 @@ public class MyFrame extends JFrame implements ActionListener{
 		panel.add(user_text);
 		panel.add(l_password);
 		panel.add(password_text);
+		panel.add(message);
 		
 		
 		menuBar.setPreferredSize(new Dimension(width, 25));
 		
 		menu_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		menu_panel.setPreferredSize(new Dimension(height - 20, 25));
-		//menu_panel.setBorder(BorderFactory.createLineBorder(Color.green, 3));
 		
-		//panel.setBorder(BorderFactory.createLineBorder(Color.blue, 1));
 		panel.setPreferredSize(new Dimension(width, height - 30));
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
+		//panel.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
+		panel.setLayout(null);
 		
+		//user_text.setPreferredSize(new Dimension(200, 25));
+		//password_text.setPreferredSize(new Dimension(200, 25));
 		
-		user_text.setPreferredSize(new Dimension(200, 25));
-		password_text.setPreferredSize(new Dimension(200, 25));
+		l_user.setFont(new Font("Arial", Font.BOLD, 16));
+		l_password.setFont(new Font("Arial", Font.BOLD, 16));
+		message.setFont(new Font("Arial", Font.BOLD, 16));
+		
+		l_user.setBounds(width / 5, 50, 50, 25);
+		l_password.setBounds(width / 5, 80, 80, 25);
+
+		user_text.setBounds(width / 3, 50, 250, 25);
+		password_text.setBounds(width / 3, 80, 250, 25);
+		
+		message.setBounds(width / 5, 120, 335, 25);
+		message.setHorizontalAlignment(JLabel.CENTER);
+		message.setVisible(false);
 		
 		
 		fileMenu.setMnemonic(KeyEvent.VK_F); //Set a shortcut to the menu "Alt + key"
@@ -113,6 +136,8 @@ public class MyFrame extends JFrame implements ActionListener{
 		loadItem.setMnemonic(KeyEvent.VK_L); //Set a shortcut to the menu item
 		saveItem.setMnemonic(KeyEvent.VK_S); //Set a shortcut to the menu item
 		exitItem.setMnemonic(KeyEvent.VK_E); //Set a shortcut to the menu item
+		infoItem.setMnemonic(KeyEvent.VK_I); //Set a shortcut to the menu item
+		aboutItem.setMnemonic(KeyEvent.VK_A); //Set a shortcut to the menu item
 		
 		loadItem.setIcon(loadIcon);
 		saveItem.setIcon(saveIcon);
@@ -134,7 +159,7 @@ public class MyFrame extends JFrame implements ActionListener{
 		// -------------------------- File Menu -----------------------------//
 		if(e.getSource() == user_text || e.getSource() == password_text)
 		{
-			
+			//code
 		}
 		
 		if(e.getSource() == loadItem)
@@ -145,6 +170,10 @@ public class MyFrame extends JFrame implements ActionListener{
 				user_text.setText(loadFile.user.getName());
 				password_text.setText(loadFile.user.getPassword());
 				
+				message.setText("File loaded!");
+				message.setVisible(true);
+				SetHideLabelTime(message, 5);
+				
 			} catch (ClassNotFoundException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -153,10 +182,14 @@ public class MyFrame extends JFrame implements ActionListener{
 		
 		if(e.getSource() == saveItem)
 		{
-			if(!user_text.getText().isEmpty() && !password_text.getText().isEmpty())
+			if(!user_text.getText().isEmpty() && password_text.getPassword() != null)
 			{
 				try {
-					saveFile = new SaveFile(user_text.getText(), password_text.getText());
+					saveFile = new SaveFile(user_text.getText(), password_text);
+					
+					message.setText("File saved!");
+					message.setVisible(true);
+					SetHideLabelTime(message, 5);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -164,7 +197,9 @@ public class MyFrame extends JFrame implements ActionListener{
 			}
 			else
 			{
-				System.out.println("File not saved");
+				message.setText("File not saved!");
+				message.setVisible(true);
+				SetHideLabelTime(message, 5);
 			}
 		}
 		
@@ -194,5 +229,31 @@ public class MyFrame extends JFrame implements ActionListener{
 	void OpenInfoItem()
 	{
 		Info_window info_win = new Info_window();
+	}
+	
+	void SetHideLabelTime(JLabel label, int time) //Function to hide the label when called
+	{
+		Timer timer = new Timer();
+		TimerTask hide = new TimerTask() {
+			int counter = time;
+			@Override
+			public void run() {
+				
+				if(counter > 0)
+				{
+					counter--;
+					System.out.println("counter: " + counter);
+				}
+				else
+				{
+					label.setVisible(false);
+					timer.cancel();
+				}
+				
+				
+			}
+		};
+		
+		timer.scheduleAtFixedRate(hide, 0, 1000);
 	}
 }
